@@ -1,32 +1,24 @@
 const jwt = require("jsonwebtoken");
+const bodyParser = require('body-parser');
 
-// const authenticateToken = (req, res, next) => {
-//   const token = req.headers["authorization"];
+const secretKey = "texas";
 
-//   if (!token) {
-//     return res
-//       .status(401)
-//       .json({ message: "Access denied. Token is missing." });
-//   }
 
-//   try {
-//     const decoded = jwt.verify(token, process.env.SECRET_WORD);
-//     req.user = decoded;
-//     next();
-//   } catch (error) {
-//     return res.status(401).json({ message: "Invalid token." });
-//   }
-// };
+// Middleware to verify JWT token
+const verifyUserMiddleware = (req, res, next) => {
+  const token = req.headers['authorization'];
 
-const authenticateToken = (req, res, next) => {
-  const token = req.header("Authorization");
-  if (!token) return res.sendStatus(401);
+  if (!token) {
+    return res.status(401).json({ message: 'Access denied. Token is missing.' });
+  }
 
-  jwt.verify(token, secretKey, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
+  try {
+    const decoded = jwt.verify(token, secretKey);
+    req.user = decoded;
     next();
-  });
+  } catch (error) {
+    return res.status(401).json({ message: 'Invalid token.' });
+  }
 };
 
-module.exports = authenticateToken;
+module.exports = verifyUserMiddleware;

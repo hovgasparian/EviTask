@@ -47,38 +47,6 @@ class UsersService {
     const result = await this.models.users.destroy({ where: { id: id } });
     return result;
   }
-
-  async register(body) {
-    const { firstName, email, password } = body;
-    const hashPassword = await bcrypt.hash(password, 7);
-    const user = new this.models.users({
-      firstName: firstName,
-      email: email,
-      password: hashPassword,
-    });
-    await user.save();
-    return user;
-  }
-  async login(body) {
-    const { firstName, email, password } = body;
-    const user = await this.models.users.findAll({
-      where: {
-        email: email,
-      },
-    });
-    if (!user) {
-      throw new Error("User doesn't found");
-    } else {
-      const isPasswordValid = bcrypt.compare(password, user.password);
-      if (!isPasswordValid) {
-        throw new Error("Passwords doesn't match");
-      }
-      const token = jwt.sign({ email: user.email }, process.env.SECRET_WORD, {
-        expiresIn: "59m",
-      });
-      return token;
-    }
-  }
 }
 
 module.exports = UsersService;

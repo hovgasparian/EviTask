@@ -52,35 +52,6 @@ class UserController {
       Errors.wrongStep(res, ErrorMessages.WRONG_STEP);
     }
   }
-
-  async register(req, res) {
-    const body = req.body;
-    try {
-      const user = await req.app.services.users.register(body);
-      res.status(201).json({
-        status: "Success",
-        message: user,
-      });
-    } catch (error) {
-      Errors.wrongStep(res, ErrorMessages.WRONG_STEP);
-    }
-  }
-
-  async login(req, res) {
-    const body = req.body;
-    try {
-      const token = await req.app.services.users.login(body);
-      res.status(201).json({
-        status: "Success",
-        message: token,
-      });
-    } catch (error) {
-      res.status(404).json({
-        status: "fail",
-        message: error.message,
-      });
-    }
-  }
 }
 
 module.exports = UserController;
