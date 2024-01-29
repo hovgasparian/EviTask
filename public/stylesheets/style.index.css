@@ -1,0 +1,14 @@
+body {
+  background-color: rgb(254, 254, 254);
+}
+#div_1 {
+  text-align: center;
+}
+p {
+  font-style: italic;
+  transition: 1s;
+}
+p:hover {
+  color: red;
+  transform: scale(1.8);
+}
