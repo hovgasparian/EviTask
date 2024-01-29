@@ -13,9 +13,7 @@ class UsersService {
       include: {
         model: UserRoleRel,
         as: "roles",
-        include: [
-          { model: Role, as: "role" },
-        ],
+        include: [{ model: Role, as: "role" }],
       },
     });
     return result;
@@ -65,7 +63,7 @@ class UsersService {
     const { firstName, email, password } = body;
     const user = await this.models.users.findAll({
       where: {
-        name: firstName,
+        email: email,
       },
     });
     if (!user) {

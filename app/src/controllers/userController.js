@@ -75,7 +75,10 @@ class UserController {
         message: token,
       });
     } catch (error) {
-      Errors.wrongStep(res, ErrorMessages.WRONG_STEP);
+      res.status(404).json({
+        status: "fail",
+        message: error.message,
+      });
     }
   }
 }
