@@ -33,20 +33,11 @@ class ProductService {
 
   async update(id, body) {
     const { name, price, description, image } = body;
-    const product = await this.models.products.findAll({
-      where: {
-        id: id,
-      },
-    });
-    if (!product) throw new Error("Product not found");
-
-    const result = await product.update({
-      name,
-      price,
-      description,
-      image,
-    });
-    return result;
+    await this.models.products.update(
+      { name, price, description, image },
+      { where: { id } }
+    );
+    return this.models.products.findOne({ where: { id } });
   }
 
   async remove(id) {

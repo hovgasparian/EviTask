@@ -29,18 +29,8 @@ class CartService {
 
   async update(id, body) {
     const { user_id, product_id } = body;
-    const findCart = await this.models.carts.findAll({
-      where: {
-        id: id,
-      },
-    });
-    if (!findCart) throw new Error("Cart doesn't found");
-
-    const result = await findCart.update({
-      user_id,
-      product_id,
-    });
-    return result;
+    await this.models.carts.update({ user_id, product_id }, { where: { id } });
+    return this.models.carts.findOne({where:{id}})
   }
 
   async remove(id) {

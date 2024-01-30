@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const UserRoleRel = require("../../models/User_role_rel");
 const User = require("../../models/User");
 const Role = require("../../models/Role");
+const { use } = require("../routes/cart");
 
 class UsersService {
   constructor(models) {
@@ -46,6 +47,43 @@ class UsersService {
   async remove(id) {
     const result = await this.models.users.destroy({ where: { id: id } });
     return result;
+  }
+
+  async register(body) {
+    const { firstName, email, password, role_id } = body;
+    const hashpassword = await bcrypt.hash(password, 7);
+
+    const role = await this.models.roles.findOne({ where: { id: role_id } });
+    if (!role) throw new Error("Role not found");
+    const createdUser = await this.models.users.create({
+      firstName,
+      email,
+      password: hashpassword,
+    });
+    await this.models.userRoleRels.create({
+      user_id: createdUser.id,
+      role_id: role.id,
+    });
+
+    return createdUser;
+  }
+
+  async login(body) {
+    const { firstName, email, password } = body;
+    const user = await this.models.users.findOne({
+      where: {
+        email: email,
+      },
+    });
+    if (!user) throw new Error("User doesn't found");
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) throw new Error("Passwords doesn't match !");
+
+    const token = jwt.sign({ email: user.email }, process.env.SECRET_WORD, {
+      expiresIn: "2h",
+    });
+    return token;
   }
 }
 
