@@ -1,5 +1,3 @@
-const { Errors, ErrorMessages } = require("../../../errors/errors");
-
 class ProductController {
   async getAll(req, res) {
     try {
@@ -9,8 +7,8 @@ class ProductController {
         message: products,
       });
     } catch (error) {
-      res.json({
-        status: "fail",
+      res.status(404).json({
+        status: "Fail",
         message: error.message,
       });
     }
@@ -24,8 +22,8 @@ class ProductController {
         message: product,
       });
     } catch (error) {
-      res.json({
-        status: "fail",
+      res.status(404).json({
+        status: "Fail",
         message: error.message,
       });
     }
@@ -41,8 +39,8 @@ class ProductController {
         message: updatedProduct,
       });
     } catch (error) {
-      res.status(400).json({
-        status: "fail",
+      res.status(404).json({
+        status: "Fail",
         message: error.message,
       });
     }
@@ -58,7 +56,7 @@ class ProductController {
       });
     } catch (error) {
       res.status(404).json({
-        status: "fail",
+        status: "Fail",
         message: error.message,
       });
     }

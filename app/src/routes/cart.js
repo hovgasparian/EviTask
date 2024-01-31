@@ -6,9 +6,9 @@ const AuthMiddleware = require("../../../middleware/authMiddleware");
 const RoleMiddleware = require("../../../middleware/roleMiddleware");
 const roles = require('../../constants/roles')
 
-cartRouter.get("/", AuthMiddleware, RoleMiddleware(roles.user,roles.admin,roles.customer), controller.getAll);
-cartRouter.post("/", controller.addProduct);
-cartRouter.patch("/:id", controller.update);
-cartRouter.delete("/:id", controller.remove);
+cartRouter.get("/", AuthMiddleware, RoleMiddleware(roles.admin), controller.getAll);
+cartRouter.post("/", AuthMiddleware, RoleMiddleware(roles.admin), controller.addProduct);
+cartRouter.patch("/:id", AuthMiddleware, RoleMiddleware(roles.admin), controller.update);
+cartRouter.delete("/:id",AuthMiddleware, RoleMiddleware(roles.admin), controller.remove);
 
 module.exports = cartRouter;

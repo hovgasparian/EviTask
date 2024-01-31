@@ -1,5 +1,3 @@
-const { Errors, ErrorMessages } = require("../../../errors/errors");
-
 class RoleController {
   async getAllRoles(req, res) {
     try {
@@ -9,7 +7,10 @@ class RoleController {
         message: roles,
       });
     } catch (error) {
-      Errors.notFound(res, ErrorMessages.NOT_FOUND);
+      res.status(404).json({
+        status: "Fail",
+        message: error.message,
+      });
     }
   }
   async create(req, res) {
@@ -22,7 +23,10 @@ class RoleController {
         message: role,
       });
     } catch (error) {
-      Errors.wrongStep(res, ErrorMessages.WRONG_STEP);
+      res.status(404).json({
+        status: "Fail",
+        message: error.message,
+      });
     }
   }
 }

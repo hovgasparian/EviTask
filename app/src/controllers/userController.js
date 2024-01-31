@@ -1,5 +1,3 @@
-const { Errors, ErrorMessages } = require("../../../errors/errors");
-
 class UserController {
   async getAll(req, res) {
     try {
@@ -9,7 +7,10 @@ class UserController {
         message: users,
       });
     } catch (error) {
-      Errors.notFound(res, ErrorMessages.NOT_FOUND);
+      res.status(404).json({
+        status: "Fail",
+        message: error.message,
+      });
     }
   }
 
@@ -22,7 +23,10 @@ class UserController {
         message: user,
       });
     } catch (error) {
-      Errors.notFound(res, ErrorMessages.NOT_FOUND);
+      res.status(404).json({
+        status: "Fail",
+        message: error.message,
+      });
     }
   }
 
@@ -35,7 +39,8 @@ class UserController {
         message: user,
       });
     } catch (error) {
-      res.json({
+      res.status(404).json({
+        status: "Fail",
         message: error.message,
       });
     }
@@ -49,7 +54,10 @@ class UserController {
         message: user,
       });
     } catch (error) {
-      Errors.wrongStep(res, ErrorMessages.WRONG_STEP);
+      res.status(404).json({
+        status: "Fail",
+        message: error.message,
+      });
     }
   }
 
@@ -62,8 +70,8 @@ class UserController {
         message: user,
       });
     } catch (error) {
-      res.status(500).json({
-        status: "fail",
+      res.status(404).json({
+        status: "Fail",
         message: error.message,
       });
     }
@@ -78,8 +86,8 @@ class UserController {
         message: token,
       });
     } catch (error) {
-      res.status(500).json({
-        status: "fail",
+      res.status(404).json({
+        status: "Fail",
         message: error.message,
       });
     }

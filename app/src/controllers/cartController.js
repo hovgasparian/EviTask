@@ -7,8 +7,8 @@ class CartController {
         message: carts,
       });
     } catch (error) {
-      res.status(400).json({
-        status: "fail",
+      res.status(404).json({
+        status: "Fail",
         message: error.message,
       });
     }
@@ -23,8 +23,8 @@ class CartController {
         message: carts,
       });
     } catch (error) {
-      res.status(400).json({
-        status: "fail",
+      res.status(404).json({
+        status: "Fail",
         message: error.message,
       });
     }
@@ -40,7 +40,7 @@ class CartController {
         message: updatedItems,
       });
     } catch (error) {
-      res.status(400).json({
+      res.status(404).json({
         status: "Fail",
         message: error.message,
       });
@@ -56,8 +56,8 @@ class CartController {
         message: cartItem,
       });
     } catch (error) {
-      res.status(400).json({
-        status: "fail",
+      res.status(404).json({
+        status: "Fail",
         message: error.message,
       });
     }
