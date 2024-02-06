@@ -1,6 +1,5 @@
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../db/sql");
-const bcrypt = require("bcrypt");
 const UserRoleRel = require("./User_role_rel");
 const Role = require("./Role");
 const Product = require("./Product");

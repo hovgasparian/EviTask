@@ -15,6 +15,7 @@ const AuthMiddleware = async (req, res, next) => {
   if (!token) {
     return res.status(403).json({ message: "Invalid token: Token is missing" });
   }
+
   try {
     const decoded = jwt.verify(token, process.env.SECRET_WORD);
 
@@ -36,15 +37,7 @@ const AuthMiddleware = async (req, res, next) => {
     req.user = { ...userData, role: roles.role.name };
     next();
   } catch (error) {
-    if (error.name === "TokenExpiredError") {
-      return res
-        .status(401)
-        .json({ message: "Unauthorized: Token has expired" });
-    } else {
-      return res
-        .status(403)
-        .json({ message: "Forbidden: Invalid token", error });
-    }
+    res.status(403).json({ message: "Forbidden: Invalid token", error });
   }
 };
 

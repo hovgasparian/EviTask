@@ -1,9 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const UserRoleRel = require("../../models/User_role_rel");
-const User = require("../../models/User");
 const Role = require("../../models/Role");
-const { use } = require("../routes/cart");
 
 class UsersService {
   constructor(models) {

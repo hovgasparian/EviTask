@@ -2,9 +2,7 @@ const express = require("express");
 const router = express.Router();
 const UserController = require("../controllers/userController");
 const controller = new UserController();
-const AuthMiddleware = require("../../../middleware/authMiddleware");
-const RoleMiddleware = require("../../../middleware/roleMiddleware");
-const roles = require("../../../app/constants/roles");
+
 
 router.get("/", controller.getAll);
 router.get("/:id", controller.getById);
