@@ -27,25 +27,4 @@ describe("RolesService", () => {
       expect(mockRolesModel.findAll).toHaveBeenCalled();
     });
   });
-
-//   describe("create", () => {
-//     it("should create a new role", async () => {
-
-//         const roleData = { name: "Manager" };
-//       const createdRole = { id: 3, ...roleData };
-
-//       const mockRoleInstance = {
-//         save: jest.fn().mockResolvedValue(createdRole),
-//       };
-//       const mockRoleConstructor = jest.fn().mockReturnValue(mockRoleInstance);
-
-//       mockRolesModel.roles = mockRoleConstructor;
-
-//       const result = await rolesService.create(roleData);
-
-//       expect(result).toEqual(createdRole);
-//       expect(mockRoleConstructor).toHaveBeenCalledWith(roleData);
-//       expect(mockRoleInstance.save).toHaveBeenCalled();
-//     });
-//   });
 });

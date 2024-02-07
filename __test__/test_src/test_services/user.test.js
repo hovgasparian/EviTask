@@ -1,11 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
 const UsersService = require("../../../app/src/services/usersService");
-const UserRoleRel = require("../../../app/models/User_role_rel");
-const Role = require("../../../app/models/Role");
-const mock = require("mock");
-const { user } = require("../../../app/constants/roles");
 
 describe("UsersService", () => {
   let usersService;
@@ -35,8 +30,8 @@ describe("UsersService", () => {
       const mockUsers = [
         {
           id: 1,
-          firstName: "John",
-          email: "john@example.com",
+          firstName: "user",
+          email: "user@gmail.com",
           roles: [{ id: 1, name: "Admin" }],
         },
       ];
@@ -52,8 +47,8 @@ describe("UsersService", () => {
   describe("createUser", () => {
     it("should create a new user", async () => {
       const userData = {
-        firstName: "John",
-        email: "john@example.com",
+        firstName: "user",
+        email: "user@gmail.com",
         password: "password",
         role_id: 1,
       };
@@ -82,21 +77,6 @@ describe("UsersService", () => {
     });
   });
 
-  //   describe("getById", () => {
-  //     it("should return a user by id", async () => {
-
-  //       const mockUser = { id: 1, firstName: "John", email: "john@example.com" };
-  //       mockModels.users.findOne.mockResolvedValue(mockUser);
-
-  //       const result = await usersService.getById(1);
-
-  //       expect(result).toEqual(mockUser);
-  //       expect(mockModels.users.findOne).toHaveBeenCalledWith({
-  //         where: { id: 1 },
-  //       });
-  //     });
-  //   });
-
   describe("remove", () => {
     it("should remove a user by id", async () => {
       const userId = 1;
@@ -115,8 +95,8 @@ describe("UsersService", () => {
   describe("register", () => {
     it("should register a new user", async () => {
       const userData = {
-        firstName: "John",
-        email: "john@example.com",
+        firstName: "user",
+        email: "user@gmail.com",
         password: "password",
         role_id: 1,
       };
@@ -147,15 +127,14 @@ describe("UsersService", () => {
 
   describe("login", () => {
     it("should login a user", async () => {
-      const userData = { email: "john@example.com", password: "password" };
+      const userData = { email: "user@gmail.com", password: "password" };
       const mockUser = {
         id: 1,
-        firstName: "John",
-        email: "john@example.com",
-        password:
-          "$2b$07$3CVLKoMIBTJlxT5LR0YoeOi8Yx.e5vT5gKk2Z08Cee2mRcqUnxM2K",
+        firstName: "user",
+        email: "user@gmail.com",
+        password: "hashed_password",
       };
-      const mockToken = "mock_token";
+      const mockToken = "token";
 
       mockModels.users.findOne.mockResolvedValue(mockUser);
 
@@ -181,7 +160,7 @@ describe("UsersService", () => {
     });
 
     it("should throw an error if user not found", async () => {
-      const userData = { email: "john@example.com", password: "password" };
+      const userData = { email: "user@gmail.com", password: "password" };
 
       mockModels.users.findOne.mockResolvedValue(null);
 
@@ -190,14 +169,13 @@ describe("UsersService", () => {
       );
     });
 
-    it("should throw an error if passwords do not match", async () => {
-      const userData = { email: "john@example.com", password: "password" };
+    it("should throw an error if passwords don't match", async () => {
+      const userData = { email: "user@gmail.com", password: "password" };
       const mockUser = {
         id: 1,
-        firstName: "John",
-        email: "john@example.com",
-        password:
-          "$2b$07$3CVLKoMIBTJlxT5LR0YoeOi8Yx.e5vT5gKk2Z08Cee2mRcqUnxM2K",
+        firstName: "user",
+        email: "user@gmail.com",
+        password: "hashed_password",
       };
 
       mockModels.users.findOne.mockResolvedValue(mockUser);

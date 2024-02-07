@@ -5,7 +5,6 @@ describe("Product model", () => {
   beforeEach(async () => {
     await sequelize.sync();
   });
-  
 
   afterAll(async () => {
     await sequelize.close();
@@ -19,5 +18,18 @@ describe("Product model", () => {
         description: null,
       })
     ).rejects.toThrow();
+  });
+  it("should create a new product", async () => {
+    const product = await Product.create({
+      name: "Test Product",
+      price: 100,
+      description: "This is a test product",
+    });
+
+    expect(product).toBeDefined();
+    expect(product.id).toBeDefined();
+    expect(product.name).toBe("Test Product");
+    expect(product.price).toBe(100);
+    expect(product.description).toBe("This is a test product");
   });
 });

@@ -1,11 +1,11 @@
 const sequelize = require("../../app/db/sql");
 const ProductImage = require("../../app/models/ProductImages");
 
-
 describe("Product image model", () => {
   beforeEach(async () => {
     await sequelize.sync();
   });
+
   afterAll(async () => {
     await sequelize.close();
   });

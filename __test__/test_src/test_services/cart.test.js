@@ -77,8 +77,8 @@ describe("CartService", () => {
       const mockBody = { user_id: 2, product_id: 3 };
       const mockUpdatedCartItem = { id: 1, user_id: 2, product_id: 3 };
 
-      mockModels.carts.update.mockResolvedValueOnce(); // Mock update success
-      mockModels.carts.findOne.mockResolvedValueOnce(mockUpdatedCartItem); // Mock find after update
+      mockModels.carts.update.mockResolvedValueOnce(); 
+      mockModels.carts.findOne.mockResolvedValueOnce(mockUpdatedCartItem); 
 
       const result = await cartService.update(mockId, mockBody);
 
